@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.time.LocalDate;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
@@ -20,7 +22,8 @@ public class Customer implements Serializable {
 	@Id
 	@GeneratedValue
 	private Long id;
-
+	
+	@Enumerated(EnumType.STRING)
 	private ExternalizedEnums.CustomerType custType;
 
 	@JsonDeserialize(using = LocalDateDeserializer.class)
@@ -29,12 +32,14 @@ public class Customer implements Serializable {
 
 	private String ssn;
 
+	@Enumerated(EnumType.STRING)
 	private ExternalizedEnums.IdType idType;
 
 	private String idNumber;
 
 	private String streetAddress;
 
+	@Enumerated(EnumType.STRING)
 	private ExternalizedEnums.StateSymbol state;
 
 	private int zipCode;
