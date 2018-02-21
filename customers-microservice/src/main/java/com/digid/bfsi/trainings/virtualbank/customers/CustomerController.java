@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.digid.bfsi.trainings.virtualbank.customers.exceptionhandling.EntityNotFoundException;
+import com.fasterxml.jackson.annotation.JsonView;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -45,6 +46,14 @@ public class CustomerController {
 	@RequestMapping(method = RequestMethod.GET, value = "/customer/{customerId}")
 	@ApiOperation(value = "Get a customer passing an id", response = Customer.class)
 	ResponseEntity<?> getCustomer(@PathVariable Long customerId) throws EntityNotFoundException {
+		Customer c = customerService.findById(customerId);
+		return new ResponseEntity<>(c, HttpStatus.OK);
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/customer/{customerId}/ssn")
+	@ApiOperation(value = "Get a customer's ssn", response = Customer.class)
+	@JsonView(View.Ssn.class)
+	ResponseEntity<?> getCustomersSSN(@PathVariable Long customerId) throws EntityNotFoundException {
 		Customer c = customerService.findById(customerId);
 		return new ResponseEntity<>(c, HttpStatus.OK);
 	}

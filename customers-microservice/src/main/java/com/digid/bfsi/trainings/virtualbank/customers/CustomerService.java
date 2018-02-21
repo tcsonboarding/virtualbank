@@ -29,4 +29,8 @@ public class CustomerService {
 		custRepo.save(aCustomer);
 		return aCustomer;
 	}
+
+	public String findCustomersSsn(Long customerId) throws EntityNotFoundException {
+		return custRepo.findOne(customerId).getSsn();
+	}
 }

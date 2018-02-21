@@ -11,6 +11,7 @@ import javax.persistence.Id;
 
 import com.digid.bfsi.trainings.virtualbank.customers.utils.LocalDateDeserializer;
 import com.digid.bfsi.trainings.virtualbank.customers.utils.LocalDateSerializer;
+import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
@@ -30,6 +31,7 @@ public class Customer implements Serializable {
 	@JsonSerialize(using = LocalDateSerializer.class)
 	private LocalDate dateOfBirth;
 
+	@JsonView(View.Ssn.class)
 	private String ssn;
 
 	@Enumerated(EnumType.STRING)
