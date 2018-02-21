@@ -12,9 +12,18 @@ import com.digid.bfsi.trainings.virtualbank.creditScore.domain.CreditScore;
 import com.digid.bfsi.trainings.virtualbank.creditScore.exceptionhandling.EntityNotFoundException;
 import com.digid.bfsi.trainings.virtualbank.creditScore.service.CreditScoreService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.SwaggerDefinition;
+import io.swagger.annotations.Tag;
+
 @RestController
 @RequestMapping("/virtualbank/ssn/")
+@Api(tags = { "Virtual Bank" })
+@SwaggerDefinition(tags = { @Tag(name = "Virtual Bank", description = "API exposing the CreditScore resource") })
 public class SsnController {
+	// We're using Swagger-UI to test RestAPI functionality. To access Swagger
+	// Dashboard go to:
+	// http://localhost:8080/swagger-ui.html
 
 	@Autowired
 	CreditScoreService creditScoreService;
