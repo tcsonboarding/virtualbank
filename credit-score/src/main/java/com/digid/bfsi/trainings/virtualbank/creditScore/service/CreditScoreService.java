@@ -16,9 +16,9 @@ public class CreditScoreService {
 		return repository.findBySsn(ssn);
 	}
 
-	public CreditScore addEvent(String ssn, CreditEvent event) {
+	public CreditScore addCreditEvent(String ssn, CreditEvent creditEvent) {
 		CreditScore score = repository.findBySsn(ssn);
-		score.addCreditEvent(event);
+		score.addCreditEvent(creditEvent);
 		repository.save(score);
 		return score;
 	}
