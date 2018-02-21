@@ -1,25 +1,28 @@
 package com.digid.bfsi.trainings.virtualbank.creditScore.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.digid.bfsi.trainings.virtualbank.creditScore.domain.CreditEvent;
-import com.digid.bfsi.trainings.virtualbank.creditScore.domain.CreditScore;
-import com.digid.bfsi.trainings.virtualbank.creditScore.repository.CreditStoreRepository;
+import com.digid.bfsi.trainings.virtualbank.creditScore.repository.CreditEventRepository;
 
 @Service
 public class CreditScoreService {
 	@Autowired
-	private CreditStoreRepository repository;
+	private CreditEventRepository repository;
 
-	public CreditScore findBySsn(String ssn) {
-		return repository.findBySsn(ssn);
+	public void addCreditEvent(CreditEvent creditEvent) {
+		repository.save(creditEvent);
 	}
 
-	public CreditScore addCreditEvent(String ssn, CreditEvent creditEvent) {
-		CreditScore score = repository.findBySsn(ssn);
-		score.addCreditEvent(creditEvent);
-		repository.save(score);
-		return score;
+	public Long getScore(String ssn) {
+		Long sum = 0l;
+		List<CreditEvent> events = repository.findBySsn(ssn);
+		for (CreditEvent event : events) {
+			sum += event.getScoreChange();
+		}
+		return sum;
 	}
 }

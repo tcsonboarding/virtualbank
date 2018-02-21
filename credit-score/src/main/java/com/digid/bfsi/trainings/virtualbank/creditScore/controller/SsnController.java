@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.digid.bfsi.trainings.virtualbank.creditScore.domain.CreditEvent;
-import com.digid.bfsi.trainings.virtualbank.creditScore.domain.CreditScore;
 import com.digid.bfsi.trainings.virtualbank.creditScore.exceptionhandling.EntityNotFoundException;
 import com.digid.bfsi.trainings.virtualbank.creditScore.service.CreditScoreService;
 
@@ -37,7 +36,7 @@ public class SsnController {
 
 	@RequestMapping(method = RequestMethod.GET, value = "/{ssn}/creditscore")
 	ResponseEntity<?> getSSN(@PathVariable String ssn) throws EntityNotFoundException {
-		CreditScore score = creditScoreService.findBySsn(ssn);
+		Long score = creditScoreService.getScore(ssn);
 		return new ResponseEntity<>(score, HttpStatus.OK);
 	}
 
@@ -45,9 +44,10 @@ public class SsnController {
 	@ResponseStatus(HttpStatus.CREATED)
 	@ApiOperation(value = "Add a credit event")
 	ResponseEntity<?> addCreditEvent(@PathVariable String ssn, @RequestBody CreditEvent creditEvent) {
-		CreditScore c = creditScoreService.addCreditEvent(ssn, creditEvent);
+		creditEvent.setSsn(ssn);
+		creditScoreService.addCreditEvent(creditEvent);
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{ssn}/creditscore")
-				.buildAndExpand(c.getSsn()).toUri();
+				.buildAndExpand(ssn).toUri();
 		return ResponseEntity.created(location).build();
 	}
 

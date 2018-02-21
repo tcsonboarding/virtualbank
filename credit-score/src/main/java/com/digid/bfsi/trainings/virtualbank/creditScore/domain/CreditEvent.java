@@ -6,11 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 
 import com.digid.bfsi.trainings.virtualbank.creditScore.domain.ExternalizedEnums.EventType;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class CreditEvent implements Serializable {
@@ -24,14 +21,17 @@ public class CreditEvent implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	@ManyToOne
-	@JoinColumn(name = "ssn")
-	@JsonIgnore
-	private CreditScore creditScore;
-
-
+	private String ssn;
 	private EventType eventType;
 	private long scoreChange;
+
+	public String getSsn() {
+		return ssn;
+	}
+
+	public void setSsn(String ssn) {
+		this.ssn = ssn;
+	}
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
