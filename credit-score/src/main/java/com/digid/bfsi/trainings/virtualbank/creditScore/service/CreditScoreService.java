@@ -17,8 +17,8 @@ public class CreditScoreService {
 		repository.save(creditEvent);
 	}
 
-	public Long getScore(String ssn) {
-		Long sum = 0l;
+	public Integer getScore(String ssn) {
+		Integer sum = 0;
 		List<CreditEvent> events = repository.findBySsn(ssn);
 		for (CreditEvent event : events) {
 			sum += event.getScoreChange();

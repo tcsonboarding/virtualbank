@@ -36,7 +36,7 @@ public class SsnController {
 
 	@RequestMapping(method = RequestMethod.GET, value = "/{ssn}/creditscore")
 	ResponseEntity<?> getSSN(@PathVariable String ssn) throws EntityNotFoundException {
-		Long score = creditScoreService.getScore(ssn);
+		Integer score = creditScoreService.getScore(ssn);
 		return new ResponseEntity<>(score, HttpStatus.OK);
 	}
 
