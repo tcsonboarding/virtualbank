@@ -1,11 +1,14 @@
 package com.example.demo.Service;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.example.demo.ExceptionHandling.AccountNotFoundException;
 import com.example.demo.ExceptionHandling.NoAccountCreatedException;
 import com.example.demo.Model.Account;
+import com.example.demo.Model.RequestModels.AccountRequest;
 import com.example.demo.Repository.AccountRepository;
 
 @Service
@@ -13,6 +16,11 @@ public class AccountService {
 
 	@Autowired
 	AccountRepository accountRepository;
+	@Autowired
+	CreditScoreService creditScoreService;
+	
+	@Autowired
+	CustomerService customerService;
 	
 	/**
      * Method which returns all the Accounts
@@ -54,5 +62,44 @@ public class AccountService {
 			throw new NoAccountCreatedException();
 		}
 		return myAccount;
+	}
+	
+	public Account addAccountFromRequest(AccountRequest accountRequest) throws NoAccountCreatedException {
+		Account theAccount = new Account();
+		String ssn = customerService.getSsn(accountRequest.getCustomerId());
+		if(ssn == null) {
+			return null;
+		}
+		String creditScore = creditScoreService.getCreditScore(ssn);
+		
+		if(creditScore == null) {
+			return null;
+		}
+		
+		theAccount.setAccountType(accountRequest.getAccountType());
+		theAccount.setMinimumBalance(accountRequest.getMinimumBalance());
+		theAccount.setMonthlyFee(accountRequest.getMonthlyFee());
+		theAccount.setOverDruftLimit(accountRequest.getOverDruftLimit());
+		theAccount.setOpeningBallance(accountRequest.getOpeningBallance());
+		return addAccount(theAccount);
+		
+	}
+	
+	public Account updateAccountByOpeningBalance(String openingBallance, Long id) {
+		
+		Account myAccount=  accountRepository.updateAccountByOpeningBalance(openingBallance, id);
+		
+		if(myAccount == null) {
+			throw new AccountNotFoundException(id);
+		}
+		return myAccount;
+	}
+	
+	public Long deleteAccountByAccountId(Long id) {
+	Account myAccount =  accountRepository.findOne(id);
+	if(myAccount == null) {
+		throw new AccountNotFoundException(id);
+	}
+	return accountRepository.deleteAccountByAccountId(id);
 	}
 }
