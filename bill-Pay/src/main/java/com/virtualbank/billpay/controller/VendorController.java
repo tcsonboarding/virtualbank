@@ -16,7 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/virtualbank/billpay/vendor")
-@Api(tags = { "Virtual Bank" })
+@Api(tags = { "Virtual Bank Vendor" })
 @SwaggerDefinition(tags = { @Tag(name = "Virtual Bank", description = "API exposing the Vendor resource") })
 public class VendorController {
 

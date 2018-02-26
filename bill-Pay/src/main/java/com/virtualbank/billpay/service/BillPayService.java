@@ -16,12 +16,39 @@ public class BillPayService {
 	@Autowired
 	private BillPayRepository repository;
 
+    /**
+     * createBill method is used to pay bill for a registered vendor by vendorId
+     * @param vendorId
+     * @param bill
+     * @return
+     */
+
     public Bill createBill(Long vendorId, Bill bill) {
         Vendor vendor = new Vendor();
         vendor.setVendorId(vendorId);
         bill.setVendor(vendor);
         return repository.save(bill);
     }
+
+    /**
+     * createBills method is used to pay bills (Batch Insert) for a registered vendor by vendorId
+     * @param vendorId
+     * @param bills
+     * @return
+     */
+
+    public List<Bill> createBills(Long vendorId, List<Bill> bills) {
+        Vendor vendor = new Vendor();
+        vendor.setVendorId(vendorId);
+        bills.forEach(bill -> bill.setVendor(vendor));
+        return repository.save(bills);
+    }
+
+    /**
+     * findByBillId method is used to get bill by billId
+     * @param billId
+     * @return
+     */
 
 	public Bill findByBillId(Long billId) {
         final Bill bill = repository.findOne(billId);
@@ -30,6 +57,11 @@ public class BillPayService {
         }
         return bill;
 	}
+
+    /**
+     * deleteByBillId method is used to delete bill by billId
+     * @param billId
+     */
 
     public void deleteByBillId(Long billId) {
         if (null == repository.findOne(billId)){

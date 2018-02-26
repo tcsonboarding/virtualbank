@@ -11,9 +11,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/virtualbank/billpay/bill")
-@Api(tags = { "Virtual Bank" })
+@Api(tags = { "Virtual Bank bill pay" })
 @SwaggerDefinition(tags = { @Tag(name = "Virtual Bank", description = "API exposing the bill pay resource") })
 public class BillPayController {
 
@@ -26,6 +28,14 @@ public class BillPayController {
         final Bill savedBill = billPayService.createBill(vendorId, bill);
         System.err.println(" saved " + savedBill);
         return new ResponseEntity<>(savedBill, HttpStatus.CREATED);
+    }
+
+    @ApiOperation(value = "Pay bills for vendor", response = String.class, httpMethod = "POST")
+    @PostMapping(value = "/vendor/{vendorId}/bills")
+    public ResponseEntity<?> createBills(@PathVariable Long vendorId, @RequestBody List<Bill> bills) {
+        final List<Bill> savedBills = billPayService.createBills(vendorId, bills);
+        System.err.println(" saved " + savedBills);
+        return new ResponseEntity<>(savedBills, HttpStatus.CREATED);
     }
 
     @ApiOperation(value = "Search a billPay with an ID", response = Bill.class, httpMethod = "GET")

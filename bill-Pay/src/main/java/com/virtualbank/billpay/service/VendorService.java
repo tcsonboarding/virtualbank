@@ -15,9 +15,21 @@ public class VendorService {
 	@Autowired
 	private VendorRepository repository;
 
+    /**
+     * registerVendor is used to add new Vendor
+     * @param vendor
+     * @return
+     */
+
     public Vendor registerVendor(Vendor vendor) {
         return repository.save(vendor);
     }
+
+    /**
+     * findByVendorId is used to get vendor by vendorId
+     * @param vendorId
+     * @return
+     */
 
 	public Vendor findByVendorId(Long vendorId) {
 		final Vendor vendor = repository.findOne(vendorId);
@@ -27,12 +39,24 @@ public class VendorService {
 		return vendor;
 	}
 
+    /**
+     *
+     * @param vendorId
+     * @param billPay
+     * @return
+     */
+
 	public Vendor addBill(Long vendorId, Bill billPay) {
 		Vendor vendor = repository.findByVendorId(vendorId);
 		vendor.addVendorBill(billPay);
 		repository.save(vendor);
 		return vendor;
 	}
+
+    /**
+     * deleteVendor is used to delete vendor by vendorId
+     * @param vendorId
+     */
 
     public void deleteVendor(Long vendorId) {
         if (null == repository.findOne(vendorId)){
@@ -41,9 +65,20 @@ public class VendorService {
         repository.delete(vendorId);
     }
 
+    /**
+     * findVendors is used to get all the registered Vendors
+     * @return
+     */
+
 	public List<Vendor> findVendors() {
     	return repository.findAll();
 	}
+
+    /**
+     * findBills is used to get all the bill for Vendor by vendorId
+     * @param vendorId
+     * @return
+     */
 
     public List<Bill> findBills(Long vendorId) {
         if (null == repository.findOne(vendorId)){
