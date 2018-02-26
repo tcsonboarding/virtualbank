@@ -65,7 +65,6 @@ public class AccountService {
 	}
 	
 	public Account addAccountFromRequest(AccountRequest accountRequest) throws NoAccountCreatedException {
-		Account theAccount = new Account();
 		String ssn = customerService.getSsn(accountRequest.getCustomerId());
 		if(ssn == null) {
 			return null;
@@ -76,11 +75,14 @@ public class AccountService {
 			return null;
 		}
 		
+		Account theAccount = new Account();
+
 		theAccount.setAccountType(accountRequest.getAccountType());
 		theAccount.setMinimumBalance(accountRequest.getMinimumBalance());
 		theAccount.setMonthlyFee(accountRequest.getMonthlyFee());
 		theAccount.setOverDruftLimit(accountRequest.getOverDruftLimit());
 		theAccount.setOpeningBallance(accountRequest.getOpeningBallance());
+		
 		return addAccount(theAccount);
 		
 	}

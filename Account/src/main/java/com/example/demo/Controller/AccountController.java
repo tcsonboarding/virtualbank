@@ -66,17 +66,5 @@ public class AccountController {
 		accountService.addAccountFromRequest(accountRequest);
 		return new ResponseEntity<>(accountRequest, HttpStatus.CREATED);
 	}
-	
-	
-	@RequestMapping(method = RequestMethod.DELETE, value = "/account/", produces = "application/json")
-	ResponseEntity<?> deleteAccount(@RequestBody Account account) {
-		try {
-			 accountService.addAccount(account);
-		} catch (NoAccountCreatedException acct) {
-			acct.printStackTrace();
-		}
-		return new ResponseEntity<>(account, HttpStatus.CREATED);
-	}
-	
 
 }
