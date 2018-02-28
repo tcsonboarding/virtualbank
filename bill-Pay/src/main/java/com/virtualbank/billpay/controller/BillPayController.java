@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/virtualbank/billpay/bill")
+@RequestMapping("/virtualbank/billpay/")
 @Api(tags = { "Virtual Bank bill pay" })
 @SwaggerDefinition(tags = { @Tag(name = "Virtual Bank", description = "API exposing the bill pay resource") })
 public class BillPayController {
@@ -22,8 +22,8 @@ public class BillPayController {
 	@Autowired
 	BillPayService billPayService;
 
-    @ApiOperation(value = "Pay bill for vendor", response = String.class, httpMethod = "POST")
-    @PostMapping(value = "/vendor/{vendorId}")
+    @ApiOperation(value = "billPay request for vendor", response = String.class, httpMethod = "POST")
+    @PostMapping(value = "/account/bills/vendor/{vendorId}")
     public ResponseEntity<?> createBill(@PathVariable Long vendorId, @RequestBody Bill bill) {
         final Bill savedBill = billPayService.createBill(vendorId, bill);
         System.err.println(" saved " + savedBill);
@@ -39,9 +39,9 @@ public class BillPayController {
     }
 
     @ApiOperation(value = "Search a billPay with an ID", response = Bill.class, httpMethod = "GET")
-	@GetMapping(value = "/{billId}")
-	ResponseEntity<?> getBill(@PathVariable Long billId) {
-		final Bill bill = billPayService.findByBillId(billId);
+	@GetMapping(value = "/account/bills/vendor/{VendorId}")
+	ResponseEntity<?> getBill(@PathVariable Long vendorId) {
+		final Bill bill = billPayService.findByBillId(vendorId);
 		return new ResponseEntity<>(bill, HttpStatus.OK);
 	}
 

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/virtualbank/billpay/vendor")
+@RequestMapping("/virtualbank/billpay/")
 @Api(tags = { "Virtual Bank Vendor" })
 @SwaggerDefinition(tags = { @Tag(name = "Virtual Bank", description = "API exposing the Vendor resource") })
 public class VendorController {
@@ -24,8 +24,8 @@ public class VendorController {
 	VendorService vendorService;
 
     @ApiOperation(value = "Register vendor", response = String.class, httpMethod = "POST")
-    @PostMapping(value = "/vendors")
-	public ResponseEntity<?> registerVendor(@RequestBody Vendor vendor) {
+    @PostMapping(value = "account/{accountId}/vendors")
+	public ResponseEntity<?> registerVendor(@PathVariable Long accountId, @RequestBody Vendor vendor) {
 		vendorService.registerVendor(vendor);
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}

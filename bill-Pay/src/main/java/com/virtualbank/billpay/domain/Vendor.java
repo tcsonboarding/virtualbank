@@ -29,10 +29,28 @@ public class Vendor implements Serializable {
     @JsonIgnore
     private List<Bill> billPayList;
 
-    @Column(name = "vendor_name", nullable = false, unique = true)
+    @Column(name = "vendor_name", nullable = false)
     private String vendorName;
+    private String billType;
+    private float billAmount;
 
-    public Long getVendorId() {
+    public String getBillType() {
+		return billType;
+	}
+
+	public void setBillType(String billType) {
+		this.billType = billType;
+	}
+
+	public float getBillAmount() {
+		return billAmount;
+	}
+
+	public void setBillAmount(float billAmount) {
+		this.billAmount = billAmount;
+	}
+
+	public Long getVendorId() {
         return vendorId;
     }
 
