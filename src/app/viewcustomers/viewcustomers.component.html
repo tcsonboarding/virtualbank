@@ -1,0 +1,27 @@
+<h2>Customer List</h2>
+<table class="table">
+  <tr>
+    <th>ID</th>
+    <th>Customer Type</th>
+    <th>DOB</th>
+    <th>SSN</th>
+    <th>ID</th>
+    <th>ID Number</th>
+    <th>Address</th>
+    <th>State</th>
+    <th>Zipcode</th>
+
+  </tr>
+    <tr *ngFor="let vbcustomer of vbcustomers">
+    <td>{{vbcustomer.id}}</td>
+    <td>{{vbcustomer.custType}}</td>
+    <td>{{vbcustomer.dateOfBirth}}</td>
+    <td>{{vbcustomer.ssn}}</td>
+    <td>{{vbcustomer.idType}}</td>
+    <td>{{vbcustomer.idNumber}}</td>
+    <td>{{vbcustomer.streetAddress}}</td>
+    <td>{{vbcustomer.state}}</td>
+    <td>{{vbcustomer.zipCode}}</td>
+    
+  </tr>
+   </table>

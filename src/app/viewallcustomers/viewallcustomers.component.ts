@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Customer} from '../customer/customer';
-import {CUSTOMERS} from '../customer/mocs-customers';
+import {CUSTOMERS} from '../customer/mock-customers';
 
 @Component({
   selector: 'app-viewallcustomers',

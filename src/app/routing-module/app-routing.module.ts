@@ -8,6 +8,7 @@ import {LoginComponent} from '../login/login.component';
 import {AddcustomerComponent} from '../addcustomer/addcustomer.component';
 import {SearchcustomerComponent} from '../searchcustomer/searchcustomer.component';
 import {ViewallcustomersComponent} from '../viewallcustomers/viewallcustomers.component';
+import {ViewcustomersComponent} from '../viewcustomers/viewcustomers.component';
 
 
 const appRoutes = [
@@ -20,7 +21,8 @@ const appRoutes = [
     {path:'customer/view', component:ViewallcustomersComponent},
     {path:'billpay', component:BillpayComponent},
     {path:'creditscore', component:CreditscoreComponent},
-    {path:'login', component:LoginComponent}
+    {path:'login', component:LoginComponent},
+    {path: 'customers', component:ViewcustomersComponent}
 ];
 @NgModule({
     imports: [RouterModule.forRoot(appRoutes)],
