@@ -9,6 +9,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+import org.hibernate.validator.constraints.Email;
+
 import com.digid.bfsi.trainings.virtualbank.customers.utils.LocalDateDeserializer;
 import com.digid.bfsi.trainings.virtualbank.customers.utils.LocalDateSerializer;
 import com.fasterxml.jackson.annotation.JsonView;
@@ -36,6 +38,15 @@ public class Customer implements Serializable {
 
 	@Enumerated(EnumType.STRING)
 	private ExternalizedEnums.IdType idType;
+	
+	private String firstName;
+	
+	private String lastName;
+	
+	private long phoneNumber;
+	
+	@Email(message = "Email is invalid")
+	private String emailId;
 
 	private String idNumber;
 
@@ -118,6 +129,38 @@ public class Customer implements Serializable {
 		this.zipCode = zipCode;
 	}
 
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public long getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(long phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+	public String getEmailId() {
+		return emailId;
+	}
+
+	public void setEmailId(String emailId) {
+		this.emailId = emailId;
+	}
+	
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
@@ -125,8 +168,9 @@ public class Customer implements Serializable {
 	@Override
 	public String toString() {
 		return "Customer [id=" + id + ", custType=" + custType + ", dateOfBirth=" + dateOfBirth + ", ssn=" + ssn
-				+ ", idType=" + idType + ", idNumber=" + idNumber + ", streetAddress=" + streetAddress + ", state="
-				+ state + ", zipCode=" + zipCode + "]";
+				+ ", idType=" + idType + ", firstName=" + firstName + ", lastName=" + lastName + ", phoneNumber="
+				+ phoneNumber + ", emailId=" + emailId + ", idNumber=" + idNumber + ", streetAddress=" + streetAddress
+				+ ", state=" + state + ", zipCode=" + zipCode + "]";
 	}
 
 }
